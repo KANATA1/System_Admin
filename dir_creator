@@ -1,0 +1,19 @@
+#!/bin/bash
+
+DIRECTORY="starter"
+INPUT="${HOME}/hier.txt"
+mkdir "$DIRECTORY"
+cd "$DIRECTORY"
+while IFS= read -r line ;do
+	CMD=$(echo $line | cut -d " " -f 1)
+	OBJ=$(echo $line | cut -d " " -f 2)
+	if [[ "$CMD" = "create-directory" ]]; then
+			mkdir "$OBJ"
+		elif [[ "$CMD" = "delete-directory" ]]; then
+			rm -fr "$OBJ"
+		elif [[ "$CMD" = "delete-file" ]]; then
+			rm -f "$OBJ"
+		else
+			touch "$OBJ"
+	fi	
+done < "$INPUT"
